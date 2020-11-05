@@ -1,0 +1,172 @@
+$def with (masterlist, foods, t_day, t_month, t_year, output, autoselect, output_week,list_week, template_select, avg_week, note_day, username)
+
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>trackyoureating.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+	<div class="navbar-header">
+
+    </div>
+    <div class="navbar-header pull-right">
+      <a href="/entries" class="btn btn-primary btn-xs active" role="button">Log</a>
+      <a href="/" class="btn btn-primary btn-xs" role="button">Edit DB</a>  
+      <a href="/stats" class="btn btn-primary btn-xs" role="button">Stats</a>
+      <a href="/edittemplates" class="btn btn-primary btn-xs" role="button">Templates</a>
+      <a href="/friends" class="btn btn-primary btn-xs" role="button">Friends</a>
+      <a href="/logout" class="btn btn-primary btn-xs" role="button">Logout</a>       
+  	</div>
+</div>
+</div>
+
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Food log</h1>
+      <p class="lead">$username, what have you eaten today?</p>
+    </div>
+  </div>
+
+
+<div class="container">
+
+<form method="post" action="addweight">
+<input type="text" name="weight" /> Bodyweight (kg)<br>
+<input type="submit" value="Add entry" />
+</form>
+<br>
+
+Add new entry to log: <br>
+<form method="post" action="addentry">
+<p>
+
+<input type="text" name ="whatfood" id="whatfood" list="allFoods" size="55" autocomplete="off"/>              
+ <datalist id="allFoods">  
+$:autoselect                                                     
+ </datalist> Select Food Item<br>
+
+<input type="text" name="foodamount" value=1 size="10" /> quantity<br>
+<input type="submit" value="Add entry" /></p>
+</form>
+
+<form method="post" action="copyentries">
+<input type="submit" value="Copy all entries from previous day" />
+</form>
+
+<form method="post" action="templateentry">
+    <select name="templatetype">
+    $:template_select
+    </select>
+<input type="submit" value="Add from template" />
+</form>
+
+    </div>
+  </div>
+
+
+<div class="container">
+
+
+
+
+<h2>Food Eaten on currently selected day</h2>
+
+<form method="post" action="changedate">
+
+<select name="day">
+$:t_day
+</select>
+
+<select name="month">
+$:t_month
+</select>
+
+<select name="year">
+$:t_year
+</select>
+
+Date
+<input type="submit" value="Show this date" />
+</form>
+
+<form method="post" action="changedatetoday">
+<input type="submit" value="Goto Today" />
+</form>
+
+
+<p>
+<font color="blue">$:output</font>
+</p>
+<form method="post" action="deleteitems">
+<table id="t01" border="1" width="50%" class="table">
+<th>Name</th><th>Quantity</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th> Delete? </th>
+$for listitem in masterlist:
+    <tr><td>$listitem.name</td><td>$listitem.Quantity</td><td>$listitem.calories </td><td>$listitem.protein</td><td>$listitem.carbs</td><td>$listitem.fat</td><td><input name=$listitem.FoodID type="checkbox"></td></tr>
+</table>
+<input type="submit" value="delete selected"/>
+</form>
+
+<br>
+
+<form method="post" action="addnote">
+notes for the day <br>
+<textarea name="notes" cols="80" rows="3"  placeholder="Insert notes here" name="notes" />
+$note_day
+</textarea>
+<br>
+<input type="submit" value="Add entry" />
+</form>
+<br>
+
+
+    </div>
+  </div>
+
+
+
+<div class="container">
+
+
+
+
+
+<h2>Weekly Summary</h2>
+
+<table id="t02" border="1" width="50%"  class="table">
+<th>Day</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th>
+$for x in range (0,34,5):
+    <tr><td>$list_week[x]</td><td>$list_week[x+1]</td><td>$list_week[x+2]</td><td>$list_week[x+3]</td><td>$list_week[x+4]</td>
+</table>
+<br>
+$avg_week
+
+
+    </div>
+  </div>
+
+
+
+  </body>
+</html>
+
+
+
+
+
+
+

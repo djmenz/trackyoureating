@@ -1,0 +1,104 @@
+$def with (foods, username)
+
+<!DOCTYPE HTML>
+
+
+
+
+<html>
+  <head>
+    <title>trackyoureating.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+	<div class="navbar-header">
+
+    </div>
+    <div class="navbar-header pull-right">
+      <a href="/entries" class="btn btn-primary btn-xs" role="button">Log</a>
+      <a href="/" class="btn btn-primary btn-xs active" role="button">Edit DB</a>  
+      <a href="/stats" class="btn btn-primary btn-xs" role="button">Stats</a>
+      <a href="/edittemplates" class="btn btn-primary btn-xs" role="button">Templates</a>
+      <a href="/friends" class="btn btn-primary btn-xs" role="button">Friends</a>  
+      <a href="/logout" class="btn btn-primary btn-xs" role="button">Logout</a>   
+  	</div>
+</div>
+</div>
+
+
+
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Food database Entry</h1>
+      <p class="lead">Add and delete the master database of foods you've eaten.</p>
+
+    </div>
+  </div>
+
+
+
+
+
+<div class="container">
+<div class="jumbotron">
+
+
+Add new food to database: <br>
+<form method="post" action="add">
+<p>
+<input type="text" name="name" /> Description<br>
+<input type="text" name="protein" /> Protein(g) <br>
+<input type="text" name="fat" /> Fat(g) <br>  
+<input type="text" name="carbs" /> Carbs(g)<br>
+<input type="text" name="calories" autofocus /> Energy <br> 
+<input type="radio" name="unit" value="calories" checked> kcals
+<input type="radio" name="unit" value="kjs"> kilojoules <br> 
+
+<input type="submit" value="Add food" /></p>
+</form>
+
+  </div>
+
+<div class="jumbotron">
+<h2>Complete database</h2>
+<form method="post" action="deletetableitems">
+
+<div class="table-responsive">
+<table id="t01" border="2" class="table">
+<th>Name</th><th>protein</th><th>carbs</th><th>fat</th><th>calories</th><th> Delete? </th>
+$for food in foods:
+    <tr><td>$food.name</td> <td>$food.protein</td> <td>$food.carbs</td> <td>$food.fat</td> <td>$food.calories</td><td><input name=$food.foodID type="checkbox"></td></tr>
+</table>
+</div>  
+
+
+<input type="submit" value="delete selected - wont work if item exist"/>
+</form>
+  </div>
+
+  </div>
+
+
+
+
+  </body>
+</html>
+
+
+
+
